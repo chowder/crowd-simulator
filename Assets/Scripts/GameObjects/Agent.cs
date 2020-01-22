@@ -14,6 +14,13 @@ public class Agent : MonoBehaviour
     private Material agentMaterial = null;
     [SerializeField]
     private Material outlineMaterial = null;
+    private static List<Color> colors = new List<Color>()
+    {
+        Color.blue,
+        Color.yellow,
+        Color.red,
+        Color.green
+    };
 
     // Pulse particles
     [SerializeField]
@@ -30,8 +37,17 @@ public class Agent : MonoBehaviour
         Destination = GetRandomDestination();
         agent = GetComponent<NavMeshAgent>();
         bounds = GameObject.FindGameObjectWithTag("Ground").GetComponent<Renderer>().bounds;
-
+        AssignColor();
         AssignDevice();
+    }
+
+    private void AssignColor()
+    {
+        if (colors.Count > 0)
+        {
+            GetComponent<Renderer>().material.color = colors[0];
+            colors.RemoveAt(0);
+        }
     }
 
     private void AssignDevice()
